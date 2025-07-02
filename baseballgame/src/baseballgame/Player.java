@@ -1,14 +1,22 @@
 package baseballgame;
 
 public class Player {
+	//コンストラクタで生成
 	protected String position;//ポジション
 	protected String name; //選手名
 	protected String battingSide;//左打ちL、右打ちR、両打S
 	protected String pitchingSide;//左投げL、右投げR
 	protected double obp;//出塁率
 	protected double slg;//長打率
-    
+	//個人記録
+	protected int hit;//ヒット数
+	protected int twoBaseHit;//ツーベースヒット数
+	protected int threeBaseHit;//スリーベースヒット数
+	protected int homeRun;//ホームラン数
+	protected double avg;//打率
+	//出塁の状態
 	protected int base;//今いる塁　０の時はバッター
+	
     public Player() {
     	//無名コンストラクタ
     }
