@@ -4,8 +4,8 @@ public class GamePlay {
 
 	public static void main(String[] args) {
 		
-		Team Giants =new Team("読売ジャイアンツ");
-		Team Fighters =new Team("北海道日本ハムファイターズ");
+		Team Giants =new Team("読売ジャイアンツ","G ");
+		Team Fighters =new Team("北海道日本ハムファイターズ","F ");
 		//ジャイアンツのラインナップ-----------------------------------------------------
 		Giants.addPlayer("ピッチャー","大勢","R","R",0.1,0.2,150);
 		Giants.addPlayer("キャッチャー","岸田","R","R",0.25,0.4,0);
