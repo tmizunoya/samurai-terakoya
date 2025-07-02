@@ -72,6 +72,7 @@ public class GamePlay {
 
         while (outs < 3) {
         	Player batter = lineup[batterIndex % 9];
+        	batter.setBase(0);
             batterIndex++;
 
             double matchupBonus = getMatchupBonus(batter.getBattingSide(), pitcher.getPitchingSide());
@@ -84,19 +85,56 @@ public class GamePlay {
                 double slgComponent = (batter.getSlg() - ((pitcher.getSpeed() - 150) * 0.01)) * 4;
                 double result = slgComponent + Math.random() * 10;
 
-                if (result >= 9) System.out.println("本塁打！");
-                else if (result >= 8) System.out.println("三塁打！");
-                else if (result >= 6) System.out.println("二塁打！");
-                else System.out.println("シングルヒット！");
-                runs++; // 単純に得点1とする（本格的にするならランナー管理が必要）
+                if (result >= 9) {
+                	System.out.println("本塁打！");
+                	for(Player p:battingTeam.getFieldPlayers()) {
+                		if(p.getBase()!=null) {
+                			p.setBase(p.getBase()+4);
+                		}
+                	}
+                } else if (result >= 8) {
+                	System.out.println("三塁打！");
+                	for(Player p:battingTeam.getFieldPlayers()) {
+                		if(p.getBase()!=null) {
+                			p.setBase(p.getBase()+3);
+                		}
+                	}
+                }else if (result >= 6) {
+                	System.out.println("二塁打！");
+                	for(Player p:battingTeam.getFieldPlayers()) {
+                		if(p.getBase()!=null) {
+                			p.setBase(p.getBase()+2);
+                		}
+                	}
+                }else {
+                	System.out.println("シングルヒット！");
+                	for(Player p:battingTeam.getFieldPlayers()) {
+                		if(p.getBase()!=null) {
+                			p.setBase(p.getBase()+1);
+                		}
+                	}
+                }
+               
+                for(Player p:battingTeam.getFieldPlayers()) {
+                	if(p.getBase()!=null) {
+                		if(p.getBase()>=4) {
+                    		runs++; // 
+                    		p.setBase(null);
+                		}
+                	}
+                	
+                }
             } else {
                 outs++;
                 System.out.println("❌ アウト！ " + outs + "アウト");
+                batter.setBase(null);
             }
         }
 
         System.out.println("🛑 3アウト、チェンジ！（得点：" + runs + " 点）");
-		
+        for(Player p:battingTeam.getFieldPlayers()){
+        	p.setBase(null);
+        }
 
 	}
     public static double getMatchupBonus(String batterSide, String pitcherSide) {
