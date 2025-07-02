@@ -5,6 +5,7 @@ import java.util.List;
 public class Team {
 	
 	private String name;//チーム名
+	private String initial;//短縮チーム名
 	private List<Player> players ;//選手リスト
 	private Player[] fieldPlayers;//出場選手リスト
 	
@@ -14,9 +15,10 @@ public class Team {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 	
-	public Team(String name) {
+	public Team(String name,String initial) {
 		//コンストラクタ
 		this.name=name;
+		this.initial=initial;
 		players=new ArrayList<Player>();
 		fieldPlayers=new Player[9];
 	}
