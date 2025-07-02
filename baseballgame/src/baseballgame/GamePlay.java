@@ -17,7 +17,7 @@ public class GamePlay {
 		Giants.addPlayer("センター","オコエ","R","R",0.27,0.5,0);
 		Giants.addPlayer("ライト","丸","R","L",0.27,0.5,0);
 		
-		Giants.addPitchType("大勢","フォーク");
+		Giants.addPitchType("大勢","ストレート");
 		//Giants.changePlayerPosition("坂本", "ショート");
 		
 		Giants.dicideLineup("丸","オコエ","泉口","吉川","増田","中山","坂本","岸田","大勢");
@@ -33,7 +33,7 @@ public class GamePlay {
 		Fighters.addPlayer("センター","オコエ","R","R",0.27,0.5,0);
 		Fighters.addPlayer("ライト","丸","R","L",0.27,0.5,0);
 		
-		Fighters.addPitchType("大勢","フォーク");
+		Fighters.addPitchType("大勢","カーブ");
 		//Fighters.changePlayerPosition("坂本", "ショート");
 		
 		Fighters.dicideLineup("丸","オコエ","泉口","吉川","増田","中山","坂本","岸田","大勢");
@@ -51,20 +51,21 @@ public class GamePlay {
 
         System.out.println("⚾️ " + offense.getName() + " が先攻です！");
 
-        Pitcher pitcher = defense.getPitcher(); // 例: 1人固定
 
         for (int inning = 1; inning <= 9; inning++) {
-            System.out.println("===== 第 " + inning + " 回 表：" + offense.getName() + " 攻撃 =====");
-            playHalfInning(offense, pitcher);
+            System.out.println("=====  " + inning + "回表：" + offense.getName() + " 攻撃 =====");
+            playHalfInning(offense, defense.getPitcher());
+            System.out.println("=====  " + inning + "回裏：" + defense.getName() + " 攻撃 =====");
+            playHalfInning(defense, offense.getPitcher());
 
-            Team temp = offense;
-            offense = defense;
-            defense = temp;
-            pitcher = defense.getPitcher(); // 攻守交代
+//            Team temp = offense;
+//            offense = defense;
+//            defense = temp;
+//            pitcher = defense.getPitcher(); // 攻守交代
         }
     }
 
-    public static void playHalfInning(Team battingTeam, Pitcher pitcher) {
+    public static int playHalfInning(Team battingTeam, Pitcher pitcher) {
         Player[] lineup = battingTeam.getFieldPlayers(); // 9人
         int outs = 0;
         int runs = 0;
@@ -135,6 +136,7 @@ public class GamePlay {
         for(Player p:battingTeam.getFieldPlayers()){
         	p.setBase(null);
         }
+        return runs;
 
 	}
     public static double getMatchupBonus(String batterSide, String pitcherSide) {
